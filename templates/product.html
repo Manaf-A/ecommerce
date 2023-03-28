@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+        {{products.desc|truncatewords:120}}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{products.name}}-BORCELLE
+
+    {% endif %}
+{% endblock %}
+{% block content %}
+<div class="row my_prod_row_class">
+    <div class="mx_auto">
+        <p><a href="{% url 'shop:allprodcat' %}">Home</a>|<a href="{{products.category.get_url}}">{{products.category}}</a>|{{products.name}}</p>
+    </div>
+</div>
+<div class="container">
+<br>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <div style="min-width:18rem;margin-bottom:50px;">
+        <img src="{{products.img.url}}" alt="{{products.name}}" width="50%">
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6" style="margin-top:10px;">
+        <h1 class="my_prod_title" >{{products.name}}</h1>
+        <p>${{products.price}}</p>
+        <p style="font-size:20px;text-transform:uppercase;">Product Description</p>
+        <p class="text-justify">{{products.desc}}</p>
+        {% if products.stock <= 0 %}
+        <p><b>out of stock</b></p>
+        {% else %}
+        <p><a class="btn btn-secondary" style="margin-left:90px;" href="{% url 'cart:add_cart' products.id %}">Add to cart</a></p>
+        {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
